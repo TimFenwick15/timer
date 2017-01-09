@@ -1,64 +1,57 @@
 class Timer {
   constructor(min, sec) {
-    this.min = this.min || min
-    this.sec = this.sec || sec
-    this.timeRemaining = min * 60 + sec
-    this.timerID = 0
+    this.min = min
+    this.sec = sec
+    this.resetTimer()
   }
   
-  currentTime() {
-    return this.timeRemaining
-  }
   count() {
     this.timeRemaining--
+    this.updateView()
     if (this.timeRemaining === 0)
       this.pauseTimer()
   }
   runTimer() {
-    this.timerID = setInterval(_ => this.count(), 1000)
+    const viewMin = Number(document.getElementById('min').value) * 60
+    const viewSec = Number(document.getElementById('sec').value)
+    if (this.timeRemaining !== viewMin + viewSec) {
+      this.timeRemaining = viewMin + viewSec
+      this.min = viewMin
+      this.sec = viewSec
+    }
+    if (!this.timerID)
+      this.timerID = setInterval(_ => this.count(), 1000)
   }
   pauseTimer() {
-    if (this.timerID)
+    this.updateView()
+    if (this.timerID) {
       clearInterval(this.timerID)
+      this.timerID = 0
+    }
   }
-  resetTimer(min, sec) {
+  resetTimer() {
+    this.timeRemaining = this.min * 60 + this.sec
     this.pauseTimer()
-    this.constructor(min, sec)
   }
-
-}
-
-function updateView() {
-  // do the dom manipulations here
+  updateView() {
+    const min = Math.floor(this.timeRemaining / 60)
+    const sec = this.timeRemaining % 60
+    document.getElementById('min').value = min
+    document.getElementById('sec').value = sec
+    document.title = min + ':' + (('0' + sec).length === 3 ? sec : ('0' + sec))
+  }
 }
 
 (function() {
   let timer
-  let userMins
-  let userSecs
   document.getElementById('run')
     .addEventListener('click', event => {
-      const min = Number(document
-        .getElementById('min')
-        .value)
-      
-      const sec = Number(document
-        .getElementById('sec')
-        .value)
-      
-      userMins = min
-      userSecs = sec
-
-      timer = new Timer(min,sec)
-
+      if (typeof timer !== 'object')
+        timer = new Timer(
+          Number(document.getElementById('min').value),
+          Number(document.getElementById('sec').value)
+        )
       timer.runTimer()
-
-      setInterval(_ => {
-        document.getElementById('min').value = Math.floor(timer.currentTime() / 60)
-        document.getElementById('sec').value = timer.currentTime() % 60
-        document.title = Math.floor(timer.currentTime() / 60) + ':' + (timer.currentTime() % 60)
-      }, 1000)
-
     })
   document.getElementById('pause')
     .addEventListener('click', event => {
@@ -66,8 +59,7 @@ function updateView() {
     })
   document.getElementById('reset')
     .addEventListener('click', event => {
-      timer.resetTimer(userMins, userSecs)
+      timer.resetTimer()
     })
-
 })()
 
