@@ -48,7 +48,7 @@ const Timer = class {
   runTimer() {
     if (this.timeRemaining !== view.min() * 60 + view.sec()) {
       this.timeRemaining = view.min() * 60 + view.sec()
-      this.min = view.min() * 60
+      this.min = view.min()
       this.sec = view.sec()
     }
     if (!this.timerID)
