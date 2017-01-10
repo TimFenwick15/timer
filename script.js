@@ -5,9 +5,12 @@ const view = function() {
     min: _ => Number(document.getElementById('min').value),
     sec: _ => Number(document.getElementById('sec').value),
     title: _ => document.title,
+    goal: _ => document.getElementById('goal').value,
+    p: document.getElementsByTagName('p')[0],
     setMin: _ => document.getElementById('min').value = _,
     setSec: _ => document.getElementById('sec').value = _,
     setTitle: _ => document.title = _,
+    setGoal: _ => document.getElementById('goal').value = _,
     run: document.getElementById('run'),
     pause: document.getElementById('pause'),
     reset: document.getElementById('reset')
@@ -20,15 +23,27 @@ const Timer = class {
     this.sec = sec
     this.resetTimer()
   }
-  
-  count() {
-    this.timeRemaining--
+  resetTimer() {
+    this.timeRemaining = this.min * 60 + this.sec
+    if (view.goal() !== '')
+      view.p.innerHTML = view.goal() + '<br>' + view.p.innerHTML
+    view.setGoal('')
+    this.pauseTimer()
+  }
+  pauseTimer() {
     this.updateView()
-    if (this.timeRemaining === 0) {
-      const sound = new Audio(beep)
-      sound.play()
-      this.pauseTimer()
+    if (this.timerID) {
+      clearInterval(this.timerID)
+      this.timerID = 0
     }
+  }
+  updateView() {
+    const min = Math.floor(this.timeRemaining / 60)
+    const sec = this.timeRemaining % 60
+    const secPadded = (('0' + sec).length === 3 ? sec : ('0' + sec))
+    view.setMin(min)
+    view.setSec(secPadded)
+    view.setTitle(min + ':' + secPadded)
   }
   runTimer() {
     if (this.timeRemaining !== view.min() * 60 + view.sec()) {
@@ -39,35 +54,23 @@ const Timer = class {
     if (!this.timerID)
       this.timerID = setInterval(_ => this.count(), 1000)
   }
-  pauseTimer() {
+  count() {
+    this.timeRemaining--
     this.updateView()
-    if (this.timerID) {
-      clearInterval(this.timerID)
-      this.timerID = 0
+    if (this.timeRemaining === 0) {
+      const sound = new Audio(beep)
+      sound.play()
+      this.pauseTimer()
     }
-  }
-  resetTimer() {
-    this.timeRemaining = this.min * 60 + this.sec
-    this.pauseTimer()
-  }
-  updateView() {
-    const min = Math.floor(this.timeRemaining / 60)
-    const sec = this.timeRemaining % 60
-    const secPadded = (('0' + sec).length === 3 ? sec : ('0' + sec))
-    view.setMin(min)
-    view.setSec(secPadded)
-    view.setTitle(min + ':' + secPadded)
   }
 }
 
 const eventHandlers = function() {
-  let timer
+  const timer = new Timer(
+    view.min(),
+    view.sec()
+  )
   view.run.addEventListener('click', event => {
-      if (typeof timer !== 'object')
-        timer = new Timer(
-          view.min(),
-          view.sec()
-        )
       timer.runTimer()
     })
   view.pause.addEventListener('click', event => {

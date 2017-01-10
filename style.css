@@ -1,5 +1,10 @@
-body, div, input, button {
+body, input, button, p {
+  font-family: sans-serif;
   font-size: 36px;
+}
+
+div {
+  display: inline-block;
 }
 
 button {
@@ -18,12 +23,16 @@ input {
   width: 60px;
 }
 
-/*
- * Remove the type=number arrows.
+#goal {
+  display: block;
+  width: 100%;
+}
+
+/* Remove the type=number arrows.
  * Credit to http://stackoverflow.com/questions/13107118/how-to-remove-the-arrows-from-inputtype-number-in-opera
  */
-input::-webkit-inner-spin-button, 
-input::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
