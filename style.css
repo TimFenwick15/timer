@@ -1,20 +1,18 @@
 body, input, button, p {
   font-family: sans-serif;
-  font-size: 36px;
+  font-size: 7.5vw;
 }
 
 div {
-  display: inline-block;
-}
-
-p {
-  color: rgb(169, 169, 169);
+  display: flex;
+  justify-content: space-between;
 }
 
 button {
   background-color: #ffffff;
   border: 2px solid black;
   outline: none;
+  margin: 0 2px 0 2px;
   cursor: pointer;
 }
 
@@ -24,12 +22,16 @@ input {
   outline: 0;
   background: transparent;
   border-bottom: 2px solid black;
-  width: 60px;
+  width: 15vw;
 }
 
 #goal {
   display: block;
   width: 100%;
+}
+
+p {
+  color: rgb(169, 169, 169);
 }
 
 /* Remove the type=number arrows.
