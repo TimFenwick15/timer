@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const view = function() {
   return {
@@ -25,9 +25,6 @@ const Timer = class {
   }
   resetTimer() {
     this.timeRemaining = this.min * 60 + this.sec
-    if (view.goal() !== '')
-      view.p.innerHTML = view.goal() + '<br>' + view.p.innerHTML
-    view.setGoal('')
     this.pauseTimer()
   }
   pauseTimer() {
@@ -51,6 +48,9 @@ const Timer = class {
       this.min = view.min()
       this.sec = view.sec()
     }
+    if (view.goal() !== '')
+      view.p.innerHTML = view.goal() + '<br><s>' + view.p.innerHTML
+    view.setGoal('')
     if (!this.timerID)
       this.timerID = setInterval(_ => this.count(), 1000)
   }
