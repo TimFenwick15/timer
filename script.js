@@ -7,6 +7,7 @@ const view = function() {
     title: _ => document.title,
     goal: _ => document.getElementById('goal').value,
     p: document.getElementsByTagName('p')[0],
+    body: document.getElementsByTagName('body')[0],
     setMin: _ => document.getElementById('min').value = _,
     setSec: _ => document.getElementById('sec').value = _,
     setTitle: _ => document.title = _,
@@ -78,6 +79,10 @@ const eventHandlers = function() {
     })
   view.reset.addEventListener('click', event => {
       timer.resetTimer()
+    })
+  view.body.addEventListener('keydown', event => {
+    if (event.keyCode === 13)
+      timer.runTimer()
     })
 }()
 
