@@ -11,9 +11,9 @@ div {
 
 button {
   background-color: #ffffff;
-  border: 2px solid black;
+  border: 0.5vw solid black;
   outline: none;
-  margin: 0 2px 0 2px;
+  margin: 0 0.5vw 0 0.5vw;
   cursor: pointer;
 }
 
@@ -22,8 +22,8 @@ input {
   border: 0;
   outline: 0;
   background: transparent;
-  border-bottom: 2px solid black;
-  width: 15vw;
+  border-bottom: 0.5vw solid black;
+  width: 9vw;
 }
 
 #goal {

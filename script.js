@@ -72,18 +72,18 @@ const eventHandlers = function() {
     view.sec()
   )
   view.run.addEventListener('click', event => {
-      timer.runTimer()
-    })
+    timer.runTimer()
+  })
   view.pause.addEventListener('click', event => {
-      timer.pauseTimer()
-    })
+    timer.pauseTimer()
+  })
   view.reset.addEventListener('click', event => {
-      timer.resetTimer()
-    })
+    timer.resetTimer()
+  })
   view.body.addEventListener('keydown', event => {
     if (event.keyCode === 13)
       timer.runTimer()
-    })
+  })
 }()
 
 
