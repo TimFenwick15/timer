@@ -60,6 +60,8 @@ const Timer = class {
     this.updateView()
     if (this.timeRemaining === 0) {
       const sound = new Audio(beep)
+      sound.loop = true
+      setTimeout(_ => sound.loop = false, 3000)
       sound.play()
       this.pauseTimer()
     }
