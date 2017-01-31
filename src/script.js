@@ -44,6 +44,8 @@ const Timer = class {
     view.setTitle(min + ':' + secPadded)
   }
   runTimer() {
+    if (view.min() === 0 && view.sec() === 0)
+      this.resetTimer()
     if (this.timeRemaining !== view.min() * 60 + view.sec()) {
       this.timeRemaining = view.min() * 60 + view.sec()
       this.min = view.min()

@@ -5,12 +5,12 @@
 <head>
 <body>
   <div>
-    <input id='min' onClick='this.select()' type='number' min=0 max=99 value=25>:</input><input id='sec' onClick='this.select()' type='number' min=0 max=59 value=00></input>
-    <button id='run'>Run</button>
-    <button id='pause'>Pause</button>
-    <button id='reset'>Reset</button>
+    <input id='min' tabindex='1' onClick='this.select()' type='number' min=0 max=99 value=25>:</input><input id='sec' tabindex='2' onClick='this.select()' type='number' min=0 max=59 value=00></input>
+    <button id='run' tabindex='4'>Run</button>
+    <button id='pause' tabindex='5'>Pause</button>
+    <button id='reset' tabindex='6'>Reset</button>
   </div>
-  <input id='goal' placeholder='Type a goal here'></input>
+  <input id='goal' tabindex='3' placeholder='Type a goal here'></input>
   <p></p>
   <script src='../src/script.js'></script>
 </body>
